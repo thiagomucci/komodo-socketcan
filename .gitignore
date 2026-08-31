@@ -1,0 +1,12 @@
+socketcan-komodo
+test_bridge
+*.out
+*.exe
+*.o
+*.a
+*.so
+build/
+bin/
+.vscode/
+.idea/
+*.swp
