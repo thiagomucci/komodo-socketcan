@@ -4,8 +4,6 @@ A lightweight, low-level Linux bridge daemon in C++ connecting Total Phase Komod
 
 This tool allows hardware utilities, network analyzers, and ECU software (such as **SavvyCAN**, **candump**, **Wireshark**, or **ROS**) to interact directly with Komodo CAN channels as native Linux network interfaces (`canX` / `vcanX`).
 
----
-
 ## What is socketcan-komodo?
 
 Total Phase Komodo CAN devices operate via proprietary USB vendor commands. Linux tools naturally communicate through the Kernel's native **SocketCAN** subsystem. 
@@ -15,28 +13,19 @@ Total Phase Komodo CAN devices operate via proprietary USB vendor commands. Linu
 2. Translates them into Linux `struct can_frame` packets.
 3. Injects them directly into the Linux Kernel network layer.
 
----
-
 ## Features
-
 - **Native SocketCAN Integration:** Seamless support for standard Linux CAN utilities.
 - **Low Overhead:** Written in modern C++ (C++17) with direct POSIX system calls (`socket`, `bind`, `ioctl`).
 - **Zero Heavy Dependencies:** Requires only standard C++ runtime and Linux Kernel headers.
 - **Isolated Testing Suite:** Includes modular unit tests for local verification without physical hardware.
 
----
-
 ## System Requirements
-
 - **Operating System:** Linux (Kernel 2.6.25 or higher with SocketCAN enabled)
 - **Compiler:** `g++` with C++17 support
 - **Build System:** GNU `make`
 - **Hardware:** Total Phase Komodo CAN Interface (or `vcan` virtual interface for testing)
 
----
-
 ## Building and Installing
-
 ### 1. Clone the repository
 ```bash
 git clone [https://github.com/thmuccx/komodo-socketcan.git](https://github.com/thmuccx/komodo-socketcan.git)
@@ -73,5 +62,4 @@ candump vcan0
 ```
 
 ## License
-
 This project is licensed under the zlib License — feel free to use, modify, and distribute for personal and commercial applications.
