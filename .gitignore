@@ -11,3 +11,5 @@ bin/
 .idea/
 *.swpsrc/bridge
 src/test_bridge
+src/bridge
+src/test_bridge
