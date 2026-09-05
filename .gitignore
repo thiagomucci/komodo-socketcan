@@ -9,4 +9,5 @@ build/
 bin/
 .vscode/
 .idea/
-*.swp
+*.swpsrc/bridge
+src/test_bridge
