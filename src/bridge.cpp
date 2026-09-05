@@ -45,5 +45,31 @@ main()
         return 1;
     }
 
+    struct can_frame frame;
     std::cout << "SocketCAN initialized on vcan0, connecting to Komodo hardware...\n";
+    while (true)
+    {
+        ssize_t nbytes = read(sock, &frame, sizeof(struct can_frame));
+
+        if (nbytes < 0)
+        {
+            std::cerr << "error reading from SocketCAN" << std::strerror(errno) << "\n";
+            break;
+        }
+
+        if (nbytes < (ssize_t)sizeof(struct can_frame))
+        {
+            std::cerr << "warning: incomplete CAN frame received" << "\n";
+            continue;
+        }
+
+        std::cout << "frame ID: 0x" << std::hex << frame.can_id
+         << " | DLC: " << std::dec << (int)frame.can_dlc << " | dados: ";
+
+        for (int i = 0; i < frame.can_dlc; ++i)
+        {
+            std::cout << std::hex << (int)frame.data[i] << " ";
+        }
+        std::cout << "\n";
+    }
 }
