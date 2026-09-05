@@ -8,6 +8,11 @@
 #include <linux/can.h>
 #include <linux/can/raw.h>
 
+extern "C" 
+{
+    #include "komodo.h"
+}
+
 int open_socketcan(const char *ifname)
 {
     int sock = socket(PF_CAN, SOCK_RAW, CAN_RAW);
@@ -38,6 +43,21 @@ int open_socketcan(const char *ifname)
 int
 main()
 {
+    std::cout << "initializating komodo hardware" << "\n";
+
+    Komodo km = km_open(0);
+    if (km <= 0)
+    {
+        std::cerr << "error: Unable to open Komodo device (code: " << km << ")\n";
+    } else {
+        int bitrate = km_can_bitrate(km, KM_CAN_CH_A, 500000);
+        std::cout << "bitrate configured for Channel A: " << bitrate << " bps\n";
+        if (km_enable(km) < 0)
+        {
+        std::cerr << "Error enabling Komodo CAN channel.\n";
+        }
+    }
+
     int sock = open_socketcan("vcan0");
     if (sock < 0)
     {
@@ -72,4 +92,11 @@ main()
         }
         std::cout << "\n";
     }
+    close(sock);
+    if (km > 0)
+    {
+        std::cout << "Closing Komodo hardware connection...\n";
+        km_close(km);
+    }
+    return 0;
 }
